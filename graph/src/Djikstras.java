@@ -13,7 +13,7 @@ public class Djikstras {
 	
 	public static final int INF=10000;
 	
-	public static void printSet(HashSet<Vertex> fuck2)
+	static void printSet(HashSet<Vertex> fuck2)
 	{
 		for(Vertex v: fuck2)
 			System.out.print(v.getLabel()+" ");
@@ -34,39 +34,19 @@ public class Djikstras {
 		return min;
 	}
 
-	public static void djikstras(MyGraph graph, Vertex source)
+	static void djikstras(MyGraph graph, Vertex source)
 	{
 		HashSet<Vertex> vset=new HashSet<Vertex>(graph.vertices);
-		for(Vertex v: graph.vertices)
-		{
-			v.setDist(INF);
-			v.setPrev(null);
-		}
-
-		source.setDist(0);
+		graph.intializeSingleSource(source);
 
 		while(!vset.isEmpty())
 		{
-			//printSet(vset);
 			Vertex u=minDistVertex(vset);
-			//System.out.println(u.label);
-			System.out.println(u.getLabel());
 			for(Vertex v: graph.getOutNeighbors(u))
-			{			
-					//System.out.println("1");
-					Integer alt=u.getDist()+graph.getLength(u,v);
-					System.out.println(v.getLabel()+": "+alt+","+u.getDist()+","+graph.getLength(u,v));
-					if (alt<v.getDist())
-					{
-						v.setDist(alt);
-						v.setPrev(u);
-					}
-			}
-			//break;
+					graph.relax(u,v);
 		}
-
-		for(Vertex v: graph.vertices)
-			System.out.println("node: "+v.getLabel()+" distance: "+v.getDist());
+		
+		graph.printDists(source);
 		
 	}
 
@@ -101,8 +81,8 @@ public class Djikstras {
 		 //graph.makeUnweighted();
 		 djikstras(graph, v0);
 		 
-		 graph.printVerts();
-		 graph.printEdges();
+		// graph.printVerts();
+		// graph.printEdges();
 
 	}
 

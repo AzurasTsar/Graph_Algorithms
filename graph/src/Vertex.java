@@ -1,10 +1,17 @@
+/*
+ * 
+ * nathan mccloud
+ * updated jan 2019
+ * 
+ */
+
 package graph;
 
 public class Vertex {
-	Character label;
+	private Character label;
+	private int distance;
+	private Vertex prev;
 	boolean visited;
-	int distance;
-	Vertex prev;
 	
 	public Vertex(Character c){
 		this.label=c;

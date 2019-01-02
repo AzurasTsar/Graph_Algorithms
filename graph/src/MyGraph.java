@@ -1,9 +1,18 @@
+/*
+ * 
+ * nathan mccloud
+ * updated jan 2019
+ * 
+ */
+
 package graph;
  
 import java.util.*;
 
 public class MyGraph {
 	
+	public static final int INF=10000;
+
 	boolean directed, weighted;
 	public ArrayList<Edge> edges;
 	public HashSet<Vertex> vertices;
@@ -27,6 +36,13 @@ public class MyGraph {
 		edges.add(e);
 	}
 	
+	public void intializeSingleSource(Vertex v)
+	{
+		for(Vertex vert: this.vertices)
+			vert.setDist(INF);
+		v.setDist(0);
+	}
+		
 	public HashSet<Vertex> getOutNeighbors(Vertex v)
 	{
 		outneighbors.clear();
@@ -36,7 +52,31 @@ public class MyGraph {
 		return outneighbors;
 	}
 	
-	public int getLength(Vertex s, Vertex d)
+	//relaxation with vertices
+	public void relax(Vertex u, Vertex v)
+	{
+		if (v.getDist()>(u.getDist()+length(u,v)))
+		{
+			v.setDist(u.getDist()+length(u,v));
+			v.setPrev(u);
+		}
+			
+	}
+	
+	//relaxation with edges
+	public void relax(Edge e)
+	{
+		if (e.getDest().getDist()>(e.getSource().getDist()+e.getWeight()))
+		{
+			e.getDest().setDist(e.getSource().getDist()+e.getWeight());
+			e.getDest().setPrev(e.getSource());
+		}
+		
+			
+	}
+	
+	
+	public int length(Vertex s, Vertex d)
 	{
 		for(Edge e: this.edges)
 			if(e.getSource()==s && e.getDest()==d)
@@ -71,6 +111,12 @@ public class MyGraph {
 			this.edges.add(edgeArr[i]);
 	}
 	
+	public void printDists(Vertex source)
+	{
+		for(Vertex v: this.vertices)
+			System.out.println("node: "+v.getLabel()+" distance from "+source.getLabel()+": "+v.getDist());
+	}
+	
 	public void makeUnweighted()
 	{
 		this.weighted=false;
@@ -83,5 +129,6 @@ public class MyGraph {
 		for(Edge e: edges)
 			System.out.println(e.toString());
 	}
-		
+	
+
 }

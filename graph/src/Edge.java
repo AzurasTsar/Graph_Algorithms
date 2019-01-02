@@ -1,9 +1,16 @@
+/*
+ * 
+ * nathan mccloud
+ * updated jan 2019
+ * 
+ */
+
 package graph;
 
 public class Edge {
-	public Vertex source;
-	public Vertex dest;
-	int weight;
+	private Vertex source;
+	private Vertex dest;
+	private int weight;
 	
 
 	public Edge(Vertex s, Vertex d, int w){
