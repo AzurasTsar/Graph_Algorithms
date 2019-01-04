@@ -9,9 +9,9 @@ package graph;
 
 import java.util.HashSet;
 
-public class Djikstras {
+class Djikstras {
 	
-	public static final int INF=10000;
+	static final int INF=10000;
 	
 	static void printSet(HashSet<Vertex> fuck2)
 	{
@@ -25,7 +25,7 @@ public class Djikstras {
 		int t=INF;
 		Vertex min=null;
 		for(Vertex v: g)
-			if(v.getDist()<t)
+			if(v.getDist()<=t)/*<= to handle unreachable vertices*/
 			{
 				t=v.getDist();
 				min=v;

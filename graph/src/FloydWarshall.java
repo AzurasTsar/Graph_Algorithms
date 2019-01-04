@@ -1,6 +1,6 @@
 package graph;
 
-public class FloydWarshall {
+class FloydWarshall {
 
 	
 	

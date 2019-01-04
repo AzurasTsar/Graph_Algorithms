@@ -7,7 +7,7 @@
 
 package graph;
 
-public class BelFord {
+class BelFord {
 	
 	static boolean bellmanFord(MyGraph g, Vertex source)
 	{
@@ -15,6 +15,12 @@ public class BelFord {
 		for(int i=0; i<g.vertices.size(); i++)
 			for(Edge e: g.edges)
 				g.relax(e);
+		for(Edge e: g.edges)
+			if(e.getDest().getDist()>(e.getSource().getDist()+e.getWeight()))
+			{
+				System.out.println("Negative-Weight Cycle Detected");
+				return false;
+			}
 		g.printDists(source);
 		return true;
 	}

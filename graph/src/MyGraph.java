@@ -11,39 +11,44 @@ import java.util.*;
 
 public class MyGraph {
 	
-	public static final int INF=10000;
+	static final int INF=10000;
 
 	boolean directed, weighted;
-	public ArrayList<Edge> edges;
-	public HashSet<Vertex> vertices;
-	public HashSet<Vertex> outneighbors;
+	ArrayList<Edge> edges;
+	HashSet<Vertex> vertices;
+	HashSet<Vertex> outneighbors;
 	
-	public MyGraph(boolean d, boolean w, int v){
-		this.directed=d;
-		this.weighted=w;
+	MyGraph(boolean directed, boolean weighted, int vertices){
+		this.directed=directed;
+		this.weighted=weighted;
 		this.edges=new ArrayList<Edge>();
-		this.vertices=new HashSet<Vertex>(v);
+		this.vertices=new HashSet<Vertex>(vertices);
 		this.outneighbors=new HashSet<Vertex>();
 	}
 	
-	public void addVertex(Vertex v)
+	void addVertex(Vertex v)
 	{
 		vertices.add(v);
 	}
 	
-	public void addEdge(Edge e)
+	void addEdge(Edge e)
 	{
 		edges.add(e);
+		if(!vertices.contains(e.getSource())||!vertices.contains(e.getDest()))
+		{
+			vertices.add(e.getSource());
+			vertices.add(e.getDest());
+		}
 	}
 	
-	public void intializeSingleSource(Vertex v)
+	void intializeSingleSource(Vertex v)
 	{
 		for(Vertex vert: this.vertices)
 			vert.setDist(INF);
 		v.setDist(0);
 	}
 		
-	public HashSet<Vertex> getOutNeighbors(Vertex v)
+	HashSet<Vertex> getOutNeighbors(Vertex v)
 	{
 		outneighbors.clear();
 		for(Edge e: edges)
@@ -53,7 +58,7 @@ public class MyGraph {
 	}
 	
 	//relaxation with vertices
-	public void relax(Vertex u, Vertex v)
+	void relax(Vertex u, Vertex v)
 	{
 		if (v.getDist()>(u.getDist()+length(u,v)))
 		{
@@ -64,7 +69,7 @@ public class MyGraph {
 	}
 	
 	//relaxation with edges
-	public void relax(Edge e)
+	void relax(Edge e)
 	{
 		if (e.getDest().getDist()>(e.getSource().getDist()+e.getWeight()))
 		{
@@ -76,7 +81,7 @@ public class MyGraph {
 	}
 	
 	
-	public int length(Vertex s, Vertex d)
+	int length(Vertex s, Vertex d)
 	{
 		for(Edge e: this.edges)
 			if(e.getSource()==s && e.getDest()==d)
@@ -84,14 +89,14 @@ public class MyGraph {
 		return 0;
 	}
 	
-	public void printVerts()
+	void printVerts()
 	{
 		for(Vertex v: vertices)
 			System.out.print(v.getLabel()+" ");
 		System.out.println();	
 	}
 	
-	public void makeunDirected()
+	void makeunDirected()
 	{
 		this.directed=false;
 		int c=0;
@@ -111,20 +116,20 @@ public class MyGraph {
 			this.edges.add(edgeArr[i]);
 	}
 	
-	public void printDists(Vertex source)
+	void printDists(Vertex source)
 	{
 		for(Vertex v: this.vertices)
 			System.out.println("node: "+v.getLabel()+" distance from "+source.getLabel()+": "+v.getDist());
 	}
 	
-	public void makeUnweighted()
+	void makeUnweighted()
 	{
 		this.weighted=false;
 		for(Edge e: edges)
 			e.setWeight(0);
 	}
 	
-	public void printEdges()
+	void printEdges()
 	{
 		for(Edge e: edges)
 			System.out.println(e.toString());
