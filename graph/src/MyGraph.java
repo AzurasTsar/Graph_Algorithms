@@ -86,7 +86,15 @@ public class MyGraph {
 		for(Edge e: this.edges)
 			if(e.getSource()==s && e.getDest()==d)
 				return e.getWeight();
-		return 0;
+		return INF; //if no edge found mark INF
+	}
+	
+	boolean hasEdge(Vertex v0, Vertex v1)
+	{
+		for(Edge e: edges)
+			if(e.getSource()==v0 && e.getDest()==v1)
+				return true;
+		return false;
 	}
 	
 	void printVerts()
@@ -116,6 +124,11 @@ public class MyGraph {
 			this.edges.add(edgeArr[i]);
 	}
 	
+	int getVerts()
+	{
+		return vertices.size();
+	}
+	
 	void printDists(Vertex source)
 	{
 		for(Vertex v: this.vertices)
@@ -129,11 +142,20 @@ public class MyGraph {
 			e.setWeight(0);
 	}
 	
-	void printEdges()
+	boolean isWeighted()
 	{
-		for(Edge e: edges)
-			System.out.println(e.toString());
+		return this.weighted;
 	}
 	
+	boolean isDirected()
+	{
+		return this.directed;
+	}
+	
+	void printEdges()
+	{
+		for(Edge e: this.edges)
+			System.out.println(e.toString());
+	}
 
 }

@@ -6,7 +6,7 @@
  */
 
 package graph;
-
+/* computes shortest paths between source vertex and all other vertices in a weighted graph G */
 import java.util.HashSet;
 
 class Djikstras {
@@ -52,7 +52,9 @@ class Djikstras {
 
 
 	public static void main(String[] args) {
+		//test case
 		 MyGraph graph=new MyGraph(true, true, 5);
+		 
 		 Vertex v0=new Vertex('s');
 		 Vertex v1=new Vertex('t');
 		 Vertex v2=new Vertex('y');

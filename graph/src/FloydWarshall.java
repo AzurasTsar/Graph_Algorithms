@@ -6,7 +6,7 @@
  */
 
 package graph;
-
+/* computes the shortest path between all pairs of vertices i,j in a weighted graph G */
 class FloydWarshall {
 
 	static final int INF=10000;
@@ -18,7 +18,7 @@ class FloydWarshall {
 	
 	static void floydWarshall(MyGraph graph)
 	{
-		int c=0;
+		int c=0;                                    
 		int V=graph.getVerts();
 		int distMatrix[][]=new int[V][V];
 		Vertex verts[]=new Vertex[V];
@@ -70,6 +70,7 @@ class FloydWarshall {
 	
 	
 	public static void main(String[] args) {
+		//test case
 		MyGraph g=new MyGraph(true,true,4);
 	
 		Vertex v0=new Vertex('a');

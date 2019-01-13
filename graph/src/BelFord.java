@@ -6,7 +6,7 @@
  */
 
 package graph;
-
+/* computes shortest paths between source vertex and all other vertices in a weighted graph G, allows for negative edge weights but not negative cycles */
 class BelFord {
 	
 	static boolean bellmanFord(MyGraph g, Vertex source)
@@ -27,7 +27,9 @@ class BelFord {
 	
 	
 	public static void main(String[] args){
-		MyGraph graph=new MyGraph(true,true,5);
+		 //test case
+		 MyGraph graph=new MyGraph(true,true,5);
+		 
 		 Vertex v0=new Vertex('s');
 		 Vertex v1=new Vertex('t');
 		 Vertex v2=new Vertex('y');
