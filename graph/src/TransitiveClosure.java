@@ -16,8 +16,7 @@ public class TransitiveClosure {
 	
 	static void space()
 	{
-		String space="  ";
-		System.out.print(space);
+		System.out.print("  ");
 	}
 
 	static void transClose(MyGraph g)
