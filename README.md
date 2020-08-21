@@ -5,4 +5,4 @@ Currently have working graph construction and fully implemented Djikstra's, Bell
 
 future goals: implementation of other graph algorithms described in the book, GUI/Graphical representation for graphs, animation of algorithm steps
 
-updated Jan 12 2019
+updated July 26 2020
