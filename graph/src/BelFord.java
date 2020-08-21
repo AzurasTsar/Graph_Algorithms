@@ -6,16 +6,17 @@
  */
 
 package graph;
-/* computes shortest paths between source vertex and all other vertices in a weighted graph G, allows for negative edge weights but not negative cycles */
+/* computes shortest paths between source vertex and all other 
+ * vertices in a weighted graph G, allows for negative edge weights but not negative cycles */
 class BelFord {
 	
 	static boolean bellmanFord(MyGraph g, Vertex source)
 	{
 		g.intializeSingleSource(source);
-		for(int i=0; i<g.vertices.size(); i++)
-			for(Edge e: g.edges)
+		for(int i=0; i<g.getVertSize(); i++)
+			for(Edge e: g.getEdges())
 				g.relax(e);
-		for(Edge e: g.edges)
+		for(Edge e: g.getEdges())
 			if(e.getDest().getDist()>(e.getSource().getDist()+e.getWeight()))
 			{
 				System.out.println("Negative-Weight Cycle Detected");
@@ -52,7 +53,7 @@ class BelFord {
 		 graph.addEdge(new Edge(v3,v0,2));
 		 graph.addEdge(new Edge(v3,v4,7));
 		 graph.addEdge(new Edge(v4,v1,-2));
-		 
+		 System.out.println("Testin belford");
 		 bellmanFord(graph,v0);
 		
 	}

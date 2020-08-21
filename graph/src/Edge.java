@@ -14,6 +14,12 @@ public class Edge {
 	private int weight;
 	
 
+	Edge(Vertex s, Vertex d){
+		this.source=s;
+		this.dest=d;
+		this.weight=0;
+	}
+	
 	Edge(Vertex s, Vertex d, int w){
 		this.source=s;
 		this.dest=d;

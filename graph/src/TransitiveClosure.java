@@ -22,11 +22,11 @@ public class TransitiveClosure {
 	static void transClose(MyGraph g)
 	{
 		int c=0;
-		int V=g.getVerts();
+		int V=g.getVertSize();
 		Vertex numVerts[]=new Vertex[V];
-		int closMatrix[][] = new int[V][V];
+		int closMatrix[][]=new int[V][V];
 		
-		for(Vertex v: g.vertices)
+		for(Vertex v: g.getVerts())
 		{	
 			numVerts[c]=v;
 			c++;
@@ -34,7 +34,7 @@ public class TransitiveClosure {
 		
 		for(int i=0; i<V; i++)
 			for(int j=0; j<V; j++)
-				if(i == j || g.hasEdge(numVerts[i],numVerts[j]))
+				if(i == j || g.getEdge(numVerts[i],numVerts[j]) != null)
 					closMatrix[i][j]=1;
 				else
 					closMatrix[i][j]=0;

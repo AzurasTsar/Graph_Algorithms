@@ -36,7 +36,7 @@ class Djikstras {
 
 	static void djikstras(MyGraph graph, Vertex source)
 	{
-		HashSet<Vertex> vset=new HashSet<Vertex>(graph.vertices);
+		HashSet<Vertex> vset=new HashSet<Vertex>(graph.getVerts());
 		graph.intializeSingleSource(source);
 
 		while(!vset.isEmpty())
@@ -49,7 +49,6 @@ class Djikstras {
 		graph.printDists(source);
 		
 	}
-
 
 	public static void main(String[] args) {
 		//test case

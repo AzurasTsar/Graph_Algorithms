@@ -19,10 +19,10 @@ class FloydWarshall {
 	static void floydWarshall(MyGraph graph)
 	{
 		int c=0;                                    
-		int V=graph.getVerts();
+		int V=graph.getVertSize();
 		int distMatrix[][]=new int[V][V];
 		Vertex verts[]=new Vertex[V];
-		for(Vertex v: graph.vertices)
+		for(Vertex v: graph.getVerts())
 		{
 			verts[c]=v;
 			c++;
@@ -47,7 +47,7 @@ class FloydWarshall {
 					if(distMatrix[i][j]>(distMatrix[i][k]+distMatrix[k][j]))
 						distMatrix[i][j]=(distMatrix[i][k]+distMatrix[k][j]);		
 		
-		for(Vertex v: graph.vertices)
+		for(Vertex v: graph.getVerts())
 			System.out.print("  " + v.getLabel());
 		
 		newLine();

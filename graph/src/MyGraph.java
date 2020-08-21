@@ -1,7 +1,7 @@
 /*
  * 
  * nathan mccloud
- * updated jan 2019
+ * updated july 2020
  * 
  */
 
@@ -13,10 +13,10 @@ public class MyGraph {
 	
 	static final int INF=10000;
 
-	boolean directed, weighted;
-	ArrayList<Edge> edges;
-	HashSet<Vertex> vertices;
-	HashSet<Vertex> outneighbors;
+	private boolean directed, weighted;
+	private ArrayList<Edge> edges;
+	private HashSet<Vertex> vertices;
+	private HashSet<Vertex> outneighbors;
 	
 	MyGraph(boolean directed, boolean weighted, int vertices){
 		this.directed=directed;
@@ -26,6 +26,16 @@ public class MyGraph {
 		this.outneighbors=new HashSet<Vertex>();
 	}
 	
+	ArrayList<Edge> getEdges()
+	{
+		return this.edges;
+	} 
+	
+	HashSet<Vertex> getVerts()
+	{
+		return this.vertices;
+	} 
+	
 	void addVertex(Vertex v)
 	{
 		vertices.add(v);
@@ -34,11 +44,18 @@ public class MyGraph {
 	void addEdge(Edge e)
 	{
 		edges.add(e);
-		if(!vertices.contains(e.getSource())||!vertices.contains(e.getDest()))
+		if(!vertices.contains(e.getSource()))
 		{
 			vertices.add(e.getSource());
-			vertices.add(e.getDest());
 		}
+		
+		if(!vertices.contains(e.getDest()))
+		{
+			vertices.add(e.getDest());
+
+		}
+		e.getDest().addPre(e.getSource());
+
 	}
 	
 	void intializeSingleSource(Vertex v)
@@ -65,7 +82,6 @@ public class MyGraph {
 			v.setDist(u.getDist()+length(u,v));
 			v.setPrev(u);
 		}
-			
 	}
 	
 	//relaxation with edges
@@ -75,11 +91,8 @@ public class MyGraph {
 		{
 			e.getDest().setDist(e.getSource().getDist()+e.getWeight());
 			e.getDest().setPrev(e.getSource());
-		}
-		
-			
+		}	
 	}
-	
 	
 	int length(Vertex s, Vertex d)
 	{
@@ -89,11 +102,23 @@ public class MyGraph {
 		return INF; //if no edge found mark INF
 	}
 	
-	boolean hasEdge(Vertex v0, Vertex v1)
+	Edge getEdge(Vertex v0, Vertex v1)
 	{
 		for(Edge e: edges)
 			if(e.getSource()==v0 && e.getDest()==v1)
-				return true;
+				return e;
+		return null;
+	}
+	
+	boolean removeEdge(Vertex v0, Vertex v1)
+	{
+		Edge e;
+		if((e = this.getEdge(v0, v1)) != null)
+		{
+			this.edges.remove(e);	
+			v1.removePre(v0);
+			return true;
+		}
 		return false;
 	}
 	
@@ -124,7 +149,7 @@ public class MyGraph {
 			this.edges.add(edgeArr[i]);
 	}
 	
-	int getVerts()
+	int getVertSize()
 	{
 		return vertices.size();
 	}
@@ -132,7 +157,9 @@ public class MyGraph {
 	void printDists(Vertex source)
 	{
 		for(Vertex v: this.vertices)
-			System.out.println("node: "+v.getLabel()+" distance from "+source.getLabel()+": "+v.getDist());
+			System.out.println("node: "+
+			v.getLabel()+" distance from "+
+			source.getLabel()+": "+v.getDist());
 	}
 	
 	void makeUnweighted()
